@@ -8,8 +8,8 @@ import AddProductForm from './components/AddProductForm';
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const productsPerPage = 3;
+  const [hasMorePages, setHasMorePages] = useState(true);
+  const productsPerPage = 16;
 
   const searchProducts = async (searchTerm, page) => {
     const response = await axios.get(
@@ -18,6 +18,13 @@ const HomePage = () => {
       }`
     );
     setProducts(response.data);
+    console.log(response.data.length)
+    if (response.data.length < productsPerPage) {
+      setHasMorePages(false);
+    } else {
+      setHasMorePages(true);
+    }
+
   };
 
   useEffect(() => {
@@ -50,12 +57,17 @@ const HomePage = () => {
         <li className="page-item active" aria-current="page">
           <span className="page-link">{currentPage}</span>
         </li>
-        <li className="page-item">
-          <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
+        <li className={`page-item ${!hasMorePages ? 'disabled' : ''}`}>
+          <button
+            className="page-link"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={!hasMorePages}
+          >
             Next
           </button>
         </li>
       </ul>
+
     </nav>
   </div>
 );

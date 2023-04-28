@@ -10,13 +10,24 @@ const ProductList = ({ products }) => {
             <div className="product-card window">
               <div className="title-bar">
                 <div className="title-bar-text">{product.name}</div>
+                <div class="title-bar-controls">
+                  <button aria-label="Minimize"></button>
+                  <button aria-label="Maximize"></button>
+                  <button aria-label="Close"></button>
+                </div>
               </div>
               <div className="window-body d-flex flex-column align-items-center justify-content-between">
-                <img src={product.imageUrl} className="img-fluid" alt={product.name} />
-                {product.price && <p>${product.price.toFixed(2)}</p>}
-                <a href={product.url} className="button" target="_blank" rel="noopener noreferrer">
-                  View Product
-                </a>
+                <div className="product-card-img-container">
+                  <img
+                    src={product.imageUrl}
+                    className="img-fluid product-card-img"
+                    alt={product.name}
+                  />
+                </div>
+                <p className="product-card-price">${product.price && product.price.toFixed(2)}</p>
+                <button onClick={() => window.location.href = product.url} className="button">
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>
