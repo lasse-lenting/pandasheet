@@ -13,7 +13,7 @@ const HomePage = () => {
 
   const searchProducts = async (searchTerm, page) => {
     const response = await axios.get(
-      `http://localhost:3000/api/products?search=${searchTerm}&limit=${productsPerPage}&skip=${
+      `https://pandasheet.vavy.repl.co/api/products?search=${searchTerm}&limit=${productsPerPage}&skip=${
         (page - 1) * productsPerPage
       }`
     );
